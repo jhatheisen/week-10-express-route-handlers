@@ -25,6 +25,21 @@ const express = require('express');
 const app = express();
 
 // Your code here
+app.use(express.json());
+
+app.use((req, res, next) => {
+  console.log('Body:', req.body);
+  next();
+})
+
+app.get('/artists', (req, res) => {
+  res.send(getAllArtists());
+});
+
+app.post('/artists', (req, res) => {
+  res.status(201);
+  res.send(addArtist(req.body));
+});
 
 const port = 5000;
 app.listen(port, () => console.log('Server is listening on port', port));
